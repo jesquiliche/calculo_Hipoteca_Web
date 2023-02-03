@@ -1,3 +1,12 @@
+# Este código en Python es un programa que calcula una hipoteca. 
+# Toma como entrada el capital, los años y el interés, y 
+# luego calcula la cuota mensual y el total a pagar. 
+# También muestra un cuadro que detalla el interés, la amortización y 
+# el capital pendiente de cada mes de la hipoteca. Finalmente, 
+# devuelve una lista de diccionarios que contienen la información del cuadro.
+
+
+
 def Calcular_hipoteca(capital,anos,interes):
     #Entrada de datos
 
@@ -12,32 +21,29 @@ def Calcular_hipoteca(capital,anos,interes):
                                         
     #Mostrar resultado
    
-    print (' En una hipoteca de capital: ', capital, ' y con un interes de ', interes)
-    print (' a pagar en: ', anos, ' ańos ')
-    print (' Tendra que pagar ', plazos, ' cuotas mensuales de ',"%12.2f" % cuota, ' euros ')
-    print (' Con lo que usted debera pagar un total de: ', "%12.2f" % hipoteca)
-
-    print ('*' * 80)
 
     pagado= 0
+    # Calculamos el intres mensual
     interes_mensual = interes  / 12 / 100  #para calcular intereses de cada mes
 
-   # print ("%4s  %12s  %12s  %12s" %  ("Mes", "Intereses", "Amortiza", "Pendiente"))
+    # Montamos el cuadro de amorización 
     cuadro=[]
     pago={}
+    # Montamos el cuadro de amoritzación en un lista con datos de diccionario
     for mes in range (plazos):
-        #datos que voy a mostrar
+    
         intereses_mes_actual = (capital - pagado) * interes_mensual
         amortiza_mes_actual = cuota - intereses_mes_actual
         #calculos
         pagado = pagado + amortiza_mes_actual
-       # print ("%4d  %12.2f   %12.2f  %12.2f" %   (mes+1, intereses_mes_actual, amortiza_mes_actual, capital -pagado))
+       
+        # Guardamos el pago del mes actual en un diccinario y lo añadimos a la lista
         pago={"mes":mes+1,"intereses":round(intereses_mes_actual,2),
         "cuota":round(cuota,2),"amortizacion":round(amortiza_mes_actual,2),"capital_ped":round(capital-pagado,2)}
         cuadro.append(pago)
     return cuadro
     #Fin
-    input (' Pulse intro para salir ')
+    
     
 
 print(Calcular_hipoteca(10000,4,10))

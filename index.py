@@ -5,6 +5,10 @@ import json
 
 app=Flask(__name__)
 app.secret_key="3912481"
+# Ruta para acceder al formulario principal, ç
+# donde introducimos el capital prestado, el interes anual y el número de años 
+# de la hipoteca
+
 @app.route("/")
 def Index():
     
@@ -12,15 +16,19 @@ def Index():
 
 @app.route("/calcular",methods=['POST'])  
 def Calcular():
+    #obtener los valores del forumlario
     capital=int(request.form["Capital"])
     interes=float(request.form["Interes"])
     anos=int(request.form["Anos"])
-    print(capital)
-    print(interes)
-    print("anos")
+
+    # Lllmada a la función que nos devuelve el cuadro 
+    # de amortización de la hipoteca.
+
     cuadro=Calcular_hipoteca(capital,anos,interes)
     flash("Capital : "+str(capital)+"  Interes : "+
     str(interes)+" Años : "+str(anos)+" Hipoteca : ")
+
+    # LLamada al forumulario donde mostramos el cuadro de amortización
     
     return render_template("cuadro.htm",pagos=cuadro)
 
